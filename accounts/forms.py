@@ -57,6 +57,12 @@ class CustomUserChangeForm(forms.ModelForm):
             'email',
             'password',
             'username',
+            'account_tier',
+            'user_permissions',
             'is_staff',
-            'account_tier'
+            'is_active',
+            'is_superuser',
+            'last_login',
+            'date_joined'
         )
+    

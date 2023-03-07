@@ -6,6 +6,7 @@ from .models import (
 )
 
 
+@admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
     list_display = (
         '__str__',
@@ -14,6 +15,6 @@ class ImageAdmin(admin.ModelAdmin):
     )
     ordering = ['-upload_date']
 
-admin.site.register(Image, ImageAdmin)
+
 admin.site.register(ThumbnailSize)
 admin.site.register(ExpiringLink)

@@ -10,6 +10,7 @@ from .forms import (
 )
 
 
+@admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
@@ -23,10 +24,17 @@ class CustomUserAdmin(UserAdmin):
     )
     ordering = ('email',)
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('Username', {'fields': ('username',)}),
-        ('Permissions', {'fields': ('is_staff',)}),
+        (None, {'fields': ('username', 'email', 'password')}),
         ('Account Tier', {'fields': ('account_tier',)}),
+        ('Permissions', {
+            'fields': (
+                'is_staff',
+                'is_active',
+                'is_superuser',
+                'user_permissions')
+                }
+        ),
+        ('Additional stats', {'fields': ('last_login', 'date_joined')}),
     )
 
     add_fieldsets = (
@@ -37,6 +45,7 @@ class CustomUserAdmin(UserAdmin):
     )
 
 
+@admin.register(AccountTier)
 class AccountTierAdmin(admin.ModelAdmin):
     list_display = (
         'name',
@@ -44,6 +53,3 @@ class AccountTierAdmin(admin.ModelAdmin):
         'is_expiring_link',
         'is_original_file'
     )
-
-admin.site.register(CustomUser, CustomUserAdmin)
-admin.site.register(AccountTier, AccountTierAdmin)

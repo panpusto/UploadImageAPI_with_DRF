@@ -10,4 +10,4 @@ def path_to_upload_img(instance, filename):
     Returns:
         str: path for saving uploaded file
     """
-    return f"{instance.upload_by.id}/images/{instance.id}/{filename}"
+    return f"{instance.user.id}/images/{instance.id}/{filename}"

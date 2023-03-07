@@ -14,7 +14,7 @@ class CustomUser(AbstractUser):
         on_delete=models.SET_NULL,
         null=True
     )
-    
+   
 
 class AccountTier(models.Model):
     name = models.CharField(max_length=64)
@@ -25,7 +25,7 @@ class AccountTier(models.Model):
     is_original_file = models.BooleanField(
         default=False,
         verbose_name='Original file')
-    
+     
     def thumbnail_size_for_admin_site(self):
         return ', '.join([str(size) for size in self.thumbnail_size.all()])
     thumbnail_size_for_admin_site.short_description = 'Thumbnail Sizes'

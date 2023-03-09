@@ -28,6 +28,11 @@ class AccountTier(models.Model):
     
     def __str__(self):
         return f'{self.name}'
+    
+    @property
+    def get_thumbnail_size(self):
+        """Gets thumbnail sizes available for account tier."""
+        return self.thumbnail_size.all()
      
     def thumbnail_size_for_admin_site(self):
         return ', '.join([str(size) for size in self.thumbnail_size.all()])

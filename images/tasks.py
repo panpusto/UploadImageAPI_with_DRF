@@ -1,10 +1,12 @@
 import os
+from celery import shared_task
 from io import BytesIO
 from PIL import Image as PILImage
 from django.core.files.uploadedfile import SimpleUploadedFile
 from .models import Image
 
 
+@shared_task()
 def convert_to_thumbnails(pk):
     """Converts uploaded image to thumbnails according to user's account tier."""
     instance = Image.objects.get(id=pk)
@@ -33,3 +35,6 @@ def convert_to_thumbnails(pk):
             thumbnail_io.getvalue(),
             content_type="image/jpg" if extension.lower() == 'jpg' else 'image/png')
         instance.image.save(thumbnail_name, thumb_file, save=False)
+
+
+#TODO: write func for deleting thumbnails if original file is deleting

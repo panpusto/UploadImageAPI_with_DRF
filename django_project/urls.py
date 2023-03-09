@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # rest api
     path('api-auth/', include('rest_framework.urls')),
-    path('api/v1/', include('images.urls')),
+    path('api/v1/images/', include('images.urls')),
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
     )

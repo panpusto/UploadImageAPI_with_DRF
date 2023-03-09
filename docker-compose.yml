@@ -10,12 +10,28 @@ services:
       - 8000:8000
     depends_on:
       - db
+      - redis
+
   db:
     image: postgres:14
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
+
+  redis:
+    image: redis:7.0.9-bullseye
+    expose:
+      - 6379
+  
+  celery-worker:
+    build: .
+    command: celery -A django_project worker -l info
+    volumes:
+      - .:/code
+    depends_on:
+      - web
+      - redis
 
 volumes:
   postgres_data:

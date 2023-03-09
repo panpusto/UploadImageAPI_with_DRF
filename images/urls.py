@@ -6,6 +6,6 @@ from .views import (
 
 
 urlpatterns = [
-    path('upload', ImageCreateAPIView.as_view(), name='upload-image'),
-    path('images/', ImageListAPIView.as_view(), name='image_list_api'),
+    path('upload/', ImageCreateAPIView.as_view(), name='upload-image'),
+    path('', ImageListAPIView.as_view(), name='image_list_api'),
 ]

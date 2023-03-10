@@ -14,7 +14,7 @@ class Image(models.Model):
         default=uuid.uuid4,
         editable=False
     )
-    image = models.ImageField(upload_to=path_to_upload_img)
+    image = models.ImageField(upload_to=path_to_upload_img, max_length=255)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     upload_date = models.DateField(auto_now_add=True)
 

@@ -37,4 +37,5 @@ def convert_to_thumbnails(pk):
         instance.image.save(thumbnail_name, thumb_file, save=False)
 
 
-#TODO: write func for deleting thumbnails if original file is deleting
+#TODO: 
+# write func for deleting thumbnails if original file is deleting

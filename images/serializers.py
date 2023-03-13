@@ -3,10 +3,11 @@ from .models import Image
 
 
 class ImageListSerializer(serializers.ModelSerializer):
+    images = serializers.ListField(source='get_links')
     class Meta:
         model = Image
         fields = [
-            'image'
+            'images'
         ]
 
 

@@ -1,6 +1,8 @@
 import uuid
+import os
 from django.db import models
 from django.conf import settings
+from django.core.files.storage import default_storage
 from pathlib import Path
 from .functions import path_to_upload_img
 
@@ -22,8 +24,29 @@ class Image(models.Model):
         return Path(f'{self.image}').stem
     
     def __str__(self):
-        return f'{self.get_filename()}'
-    
+        return f'{self.get_filename()}' 
+
+    def get_links(self):
+        user_tier = self.user.account_tier
+        base_file = os.path.dirname(self.image.name)
+        thumbnails = default_storage.listdir(base_file)[1]
+        localhost = 'http://localhost:8000'
+
+        thumbs_for_user = []
+        for thumbnail in thumbnails:
+            if 'thumb' in thumbnail:
+                thumbnails_path = os.path.join(base_file, thumbnail)
+                thumbs_for_user.append(localhost + settings.MEDIA_URL + thumbnails_path)
+            
+        if user_tier.is_original_file:
+            thumbs_for_user.append(localhost + self.image.url)
+
+        if user_tier.is_expiring_link:
+            pass
+        # TODO: add after creating function to generate expiring links
+
+        return thumbs_for_user
+
 
 class ThumbnailSize(models.Model):
     width = models.IntegerField()
